@@ -1,0 +1,15 @@
+:host {
+  form {
+    display: grid;
+    justify-items: start;
+    gap: 2rem;
+    padding: 2rem;
+
+    .field {
+      .error {
+        font-size: .85rem;
+        color: red;
+      }
+    }
+  }
+}

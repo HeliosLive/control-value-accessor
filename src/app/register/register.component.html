@@ -1,0 +1,90 @@
+<form novalidate [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+  <div class="field">
+    <label for="name">Name: </label>
+    <!-- <input type="text" id="name" name="name" formControlName="name"> -->
+    <!-- <app-input-bad [disabled]="fakeDisable" (typing)="onInput($event,'name')" (touched)="onTouch('name')">
+    </app-input-bad> -->
+    <!-- <app-input-better formControlName="name"></app-input-better> -->
+    <app-input-best formControlName="name"></app-input-best>
+    <!-- <p class="error" *ngIf="name?.hasError('required') && name?.touched">
+      Name is a required field.
+    </p> -->
+  </div>
+
+  <div class="field">
+    <label for="email">Email: </label>
+    <input type="text" id="email" name="email" formControlName="email">
+    <p class="error" *ngIf="email?.hasError('required') && email?.touched">
+      Email is a required field.
+    </p>
+    <p class="error" *ngIf="email?.hasError('email') && email?.touched">
+      Email address is not valid.
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="experience">Experience: </label>
+    <!-- <select name="experience" id="experience" formControlName="experience">
+      <option *ngFor="let exp of experienceData" [value]="exp.id">{{exp.text}}</option>
+    </select> -->
+    <app-dropdown formControlName="experience" [data]="experienceData"></app-dropdown>
+    <p class="error" *ngIf="experience?.hasError('required') && experience?.touched">
+      Experience is a required field.
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="stack">Stack: </label>
+    <select name="stack" id="stack" formControlName="stack">
+      <option *ngFor="let exp of stackData" [value]="exp.id">{{exp.text}}</option>
+    </select>
+    <p class="error" *ngIf="stack?.hasError('required') && stack?.touched">
+      Stack is a required field.
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="salary">Salary expectation (gross per monthly): </label>
+    <input type="number" id="salary" name="salary" formControlName="salary">
+    <p class="error" *ngIf="salary?.hasError('required') && salary?.touched">
+      Salary expectation is a required field.
+    </p>
+    <p class="error" *ngIf="salary?.hasError('min') && salary?.touched">
+      This is a serious form, enough joke! cut it out..
+    </p>
+    <p class="error" *ngIf="salary?.hasError('max') && salary?.touched">
+      Well, another joke.. Please stop...
+    </p>
+  </div>
+
+  <div class="field">
+    <label>Location: </label>
+    <ng-container *ngFor="let data of locationData">
+      <!-- <input type="radio" [value]="data.id" formControlName="location">{{data.text}} -->
+      <app-radio formControlName="location" [value]="data.id">{{data.text}}</app-radio>
+      <!-- we can also create a template that includes container loop -->
+    </ng-container>
+    <p class="error" *ngIf="location?.hasError('required') && location?.touched">
+      Location is a required field.
+    </p>
+  </div>
+
+  <div class="field">
+    <label>Gender: </label>
+    <ng-container *ngFor="let data of genderData">
+      <input type="radio" [value]="data.id" formControlName="gender">{{data.text}}
+    </ng-container>
+    <p class="error" *ngIf="gender?.hasError('required') && gender?.touched">
+      Gender is a required field.
+    </p>
+  </div>
+
+  <button type="submit">
+    Submit
+  </button>
+
+  <button (click)="onDisable()">
+    toggle disability
+  </button>
+</form>
